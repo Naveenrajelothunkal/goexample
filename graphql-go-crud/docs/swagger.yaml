@@ -1,0 +1,113 @@
+basePath: /
+definitions:
+  main.Credentials:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  main.Mytype:
+    properties:
+      float32:
+        type: number
+      id:
+        type: integer
+      info:
+        type: string
+      name:
+        type: string
+    type: object
+  main.SkilltypeList:
+    properties:
+      skills:
+        items:
+          $ref: '#/definitions/skilldetailsmodel.SkillType'
+        type: array
+    type: object
+  main.Token:
+    properties:
+      token:
+        type: string
+    type: object
+  skilldetailsmodel.SkillType:
+    properties:
+      name:
+        type: string
+      rating:
+        type: integer
+      skill_id:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: API Support
+  description: A Graphql golang API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: graphql-go-crud
+  version: "1.0"
+paths:
+  /goengine/mylist:
+    get:
+      description: Get list of mylist data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Mytype'
+      security:
+      - ApiKeyAuth: []
+      summary: Get list of mylist data
+      tags:
+      - mylist
+  /goengine/skills:
+    get:
+      description: Get list of skill
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.SkilltypeList'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get list of skill
+      tags:
+      - skills
+  /token:
+    post:
+      consumes:
+      - application/json
+      description: Get token to access application
+      parameters:
+      - description: Credentials info
+        in: body
+        name: Credentials
+        required: true
+        schema:
+          $ref: '#/definitions/main.Credentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get token to access application
+      tags:
+      - token
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: token
+    type: apiKey
+swagger: "2.0"

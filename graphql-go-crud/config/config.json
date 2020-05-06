@@ -1,0 +1,11 @@
+{   
+    "TokenExpiry":180,
+    "DbUrl":"mongodb://localhost:27017",
+    "Cluster":[
+        {
+            "Id":"devplatform",
+            "Url":"#####",
+            "Token":"######"
+        }
+    ]
+}
